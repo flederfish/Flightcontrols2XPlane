@@ -114,6 +114,8 @@ NetworkDatapool *dp;
 char		World[64] = "WORLD1";
 char		Acr[8] = "ACR1";
 
+float time_since_last_loop = 0;
+
 data da;
 
 //------------------------------------------------------------------------------------------------------
@@ -123,6 +125,8 @@ float map(float x, float in_min, float in_max, float out_min, float out_max);
 void write_FCU();
 
 void write_EFIS();
+
+void write_general_controls();
 
 float	MyFlightLoopCallback(float inElapsedSinceLastCall,
 	float inElapsedTimeSinceLastFlightLoop,

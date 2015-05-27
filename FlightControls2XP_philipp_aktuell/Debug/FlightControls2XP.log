@@ -1,4 +1,4 @@
-﻿Der Buildvorgang wurde am 27.05.2015 10:42:12 gestartet.
+﻿Der Buildvorgang wurde am 27.05.2015 11:01:33 gestartet.
      1>Projekt "D:\Dokumente\Flightcontrols2XPlane\FlightControls2XP_philipp_aktuell\FlightControls2XP.vcxproj" auf Knoten "2", Rebuild Ziel(e).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
@@ -19,15 +19,15 @@
                  d:\programme\visualstudio13\vc\include\string.h(112): Siehe Deklaration von 'strcpy'
      1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(13): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  d:\programme\visualstudio13\vc\include\string.h(112): Siehe Deklaration von 'strcpy'
-     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(188): warning C4305: 'Argument': Verkürzung von 'double' in 'float'
-     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(191): warning C4305: 'Argument': Verkürzung von 'double' in 'float'
-     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(194): warning C4305: 'Argument': Verkürzung von 'double' in 'float'
-     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(197): warning C4305: 'Argument': Verkürzung von 'double' in 'float'
-     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(104): warning C4101: 'Ped1_left_brake_ratio': Unreferenzierte lokale Variable
-     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(107): warning C4101: 'Ped2_right_brake_ratio': Unreferenzierte lokale Variable
-     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(106): warning C4101: 'Ped2_left_brake_ratio': Unreferenzierte lokale Variable
-     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(105): warning C4101: 'Ped1_right_brake_ratio': Unreferenzierte lokale Variable
-     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(436): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(289): warning C4244: 'Argument': Konvertierung von 'double' in 'float', möglicher Datenverlust
+     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(558): warning C4305: 'Argument': Verkürzung von 'double' in 'float'
+     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(561): warning C4305: 'Argument': Verkürzung von 'double' in 'float'
+     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(564): warning C4305: 'Argument': Verkürzung von 'double' in 'float'
+     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(567): warning C4305: 'Argument': Verkürzung von 'double' in 'float'
+     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(476): warning C4101: 'Ped1_left_brake_ratio': Unreferenzierte lokale Variable
+     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(479): warning C4101: 'Ped2_right_brake_ratio': Unreferenzierte lokale Variable
+     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(478): warning C4101: 'Ped2_left_brake_ratio': Unreferenzierte lokale Variable
+     1>d:\dokumente\flightcontrols2xplane\flightcontrols2xp_philipp_aktuell\flightcontrols2xp.cpp(477): warning C4101: 'Ped1_right_brake_ratio': Unreferenzierte lokale Variable
          data.cpp
          Code wird generiert...
          D:\programme\visualstudio13\VC\bin\CL.exe /c /IC:\XPSDK\SDK\CHeaders /IC:\includes\octopus /ZI /nologo /W3 /WX- /Od /Oy- /D IBM=1 /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt ds_BoxEFIS1.c ds_BoxEFIS2.c ds_BoxOverheadHW.c ds_BoxPedalbox1.c ds_BoxPedalbox2.c ds_BoxPedestal.c ds_boxRudTrim.c ds_BoxStick2.c ds_BoxFCU.c ds_MyXPlane.c ds_BoxStick1.c
@@ -293,4 +293,4 @@
 
 Build erfolgreich.
 
-Verstrichene Zeit 00:00:03.21
+Verstrichene Zeit 00:00:03.77

@@ -92,172 +92,25 @@ float MyFlightLoopCallback(		   float                inElapsedSinceLastCall,
 		find_qpac_datarefs();
 	}
 
-	/////Declare all Variables
-	float yaw_pedals;
-	float yaw_steeringwheel;
-	float yaw_combined;
-	float pitch_combined;
-	float roll_combined;
+	time_since_last_loop = inElapsedSinceLastCall;
 
-	float thrust_array[8];
 	
-	float Ped1_left_brake_ratio;
-	float Ped1_right_brake_ratio;
-	float Ped2_left_brake_ratio;
-	float Ped2_right_brake_ratio;
-	float combined_left_brake_ratio;
-	float combined_right_brake_ratio;
-	float speedbrake_lever;
-	float flap_lever;
-	short parkbrake;
-
-	int acr_on_ground;
 
 	da.update(dp);
 	
-	//read data to see if the aircraft is on the ground
-	acr_on_ground = XPLMGetDatai(local_acr_on_ground);
-
-	yaw_pedals = da.get_pedal1().rudder * (-1) + da.get_pedal2().rudder * (-1);
-	yaw_steeringwheel = da.get_stick1().steering_wheel * (-1) + da.get_stick2().steering_wheel * (-1);
-
-	//check if maximum/minimum value is reached
-	if (yaw_pedals > 1.0)
-		yaw_pedals = 1.0;
-	if(yaw_pedals < -1.0)
-		yaw_pedals = -1.0;
-
-	if (yaw_steeringwheel > 1.0)
-		yaw_steeringwheel = 1.0;
-	if (yaw_steeringwheel < -1.0)
-		yaw_steeringwheel = -1.0;
-
-	//get combined pitch/roll and check priority function
-	da.check_stick_priority(pitch_combined, roll_combined, inElapsedSinceLastCall);
-
-	parkbrake = da.get_pedestal().park_brakes;
-
-	//map these values from 0..4 to 0..1
-	speedbrake_lever = map( (float)da.get_pedestal().speed_brakes, 0, 4, 0, 1); 
-	flap_lever = map( (float)da.get_pedestal().flaps, 0, 4, 0, 1);
-
 	
-
-	//----------------------------------------------------------------------------------------------------------------------------
-
-	//combine pedals and steering wheel
-	if (acr_on_ground)
-	{
-		yaw_combined = yaw_steeringwheel + ( (6 / 75) * yaw_pedals );
-		if (yaw_combined > 1)
-			yaw_combined = 1;
-
-		if (yaw_combined < -1)
-			yaw_combined = -1;
-	}
-
-	else
-	{
-		yaw_combined = yaw_pedals;
-	}
-	
-
-	//calculate combined brake ratio
-	combined_left_brake_ratio = da.get_pedal1().brake_l + da.get_pedal2().brake_l;
-	combined_right_brake_ratio = da.get_pedal1().brake_r + da.get_pedal2().brake_r;
-
-	//check if maximum/minimum value is reached
-	if (combined_left_brake_ratio > 1)  
-		combined_left_brake_ratio = 1;
-
-	if (combined_right_brake_ratio > 1)
-		combined_right_brake_ratio = 1;
-
-	//Put Thrust Values in Array
-	thrust_array[0] = da.get_pedestal().thrust_lev1;
-	thrust_array[1] = da.get_pedestal().thrust_lev2;
-	thrust_array[2] = 0;
-	thrust_array[3] = 0;
-	thrust_array[4] = 0;
-	thrust_array[5] = 0;
-	thrust_array[6] = 0;
-	thrust_array[7] = 0;
-
-	if ((thrust_array[0] >= 0) && (thrust_array[0] <= 0.59))
-	{
-		thrust_array[0] = map(thrust_array[0], 0, 0.6, 0, 0.9);
-	}
-	if (thrust_array[0] > 0.59)
-		thrust_array[0] = map(thrust_array[0], 0.59, 1, 0.9, 1);
-	if ((thrust_array[1] >= 0) && (thrust_array[1] <= 0.59))
-	{
-		thrust_array[1] = map(thrust_array[1], 0, 0.6, 0, 0.9);
-	}
-	if (thrust_array[1] > 0.59)
-		thrust_array[1] = map(thrust_array[1], 0.59, 1, 0.9, 1);
-	if (thrust_array[0] < 0.1)
-		thrust_array[0] = 0;
-	if (thrust_array[1] < 0.1)
-		thrust_array[1] = 0;
-	//////////////////////////////////////////
-	//Set XPLM Values----------------------------------------------------------------------------------------------------------------------------
-
-	//Static
-	XPLMSetDatai(local_has_joystick, 1);
-	XPLMSetDatai(local_mouse_is_joystick, 0);
-	XPLMSetDatai(local_override_joystick, 1);
-	XPLMSetDatai(local_override_throttles, 1);
-
-	//set datarefs----------------------------------------------------------------------------------------------------------------------------------
-	//combined controls
-	XPLMSetDataf(local_yoke_pitch_ratio, pitch_combined);
-	XPLMSetDataf(local_yoke_roll_ratio, roll_combined);
-	XPLMSetDataf(local_yoke_heading_ratio, yaw_combined);
-
-	//thrust values for engines
-	XPLMSetDatavf(local_ENGN_thro_use, thrust_array,0,8);	//Array with elements as number of engines!!
-	XPLMSetDatavf(local_ENGN_thro, thrust_array, 0, 8);
-	XPLMSetDatavf(local_throttle_ratio, thrust_array, 0, 8);
-
-	//combined brake values
-	XPLMSetDataf(local_left_brake_ratio, combined_left_brake_ratio);
-	XPLMSetDataf(local_right_brake_ratio, combined_right_brake_ratio);
-
-	//pedestal levers
-	XPLMSetDataf(local_speedbrake_ratio, speedbrake_lever);
-	XPLMSetDataf(local_flap_ratio, flap_lever);
-	XPLMSetDatai(local_parkingbrake_ratio, (int)parkbrake);
 
 	//gear lever
 	//XPLMSetDatai(local_gearlever_position, da.get_overhead_hw().toggle_switch0);
 	
 	
+	write_general_controls();
 
 	write_FCU();
 
-	//Use XPLM Commands---------------------------------------------------------------------------------------------------------------------------------
+	write_EFIS();
 
-	if (da.get_rud_trim().rot_switch0 == -1)
-	{
-		XPLMCommandBegin(local_ruddertrim_right);
-		std::cout << " rudtrim right" << std::endl;
-	}
-	else if (da.get_rud_trim().rot_switch0 == 1)
-	{
-		XPLMCommandBegin(local_ruddertrim_left);
-		std::cout << " rudtrim left" << std::endl;
-	}
-	else if (da.get_rud_trim().rot_switch0 == 0)
-	{
-		XPLMCommandEnd(local_ruddertrim_left);
-		XPLMCommandEnd(local_ruddertrim_right);
-	}
 
-	if (da.get_rud_trim().touch_button0 == 1)
-	{
-		XPLMCommandBegin(local_ruddertrim_center);
-		std::cout << "reset" << std::endl;
-	}
 	return -1.0;
 };
 
@@ -609,6 +462,165 @@ void write_EFIS()
 		XPLMSetDatai(local_EFIS2_NDrangeFO, 5);
 }
 
+void write_general_controls()
+{
+	/////Declare all Variables
+	float yaw_pedals;
+	float yaw_steeringwheel;
+	float yaw_combined;
+	float pitch_combined;
+	float roll_combined;
+
+	float thrust_array[8];
+
+	float Ped1_left_brake_ratio;
+	float Ped1_right_brake_ratio;
+	float Ped2_left_brake_ratio;
+	float Ped2_right_brake_ratio;
+	float combined_left_brake_ratio;
+	float combined_right_brake_ratio;
+	float speedbrake_lever;
+	float flap_lever;
+	short parkbrake;
+
+	int acr_on_ground;
+
+	//read data to see if the aircraft is on the ground
+	acr_on_ground = XPLMGetDatai(local_acr_on_ground);
+
+	yaw_pedals = da.get_pedal1().rudder * (-1) + da.get_pedal2().rudder * (-1);
+	yaw_steeringwheel = da.get_stick1().steering_wheel * (-1) + da.get_stick2().steering_wheel * (-1);
+
+	//check if maximum/minimum value is reached
+	if (yaw_pedals > 1.0)
+		yaw_pedals = 1.0;
+	if (yaw_pedals < -1.0)
+		yaw_pedals = -1.0;
+
+	if (yaw_steeringwheel > 1.0)
+		yaw_steeringwheel = 1.0;
+	if (yaw_steeringwheel < -1.0)
+		yaw_steeringwheel = -1.0;
+
+	//get combined pitch/roll and check priority function
+	da.check_stick_priority(pitch_combined, roll_combined, time_since_last_loop);
+
+	parkbrake = da.get_pedestal().park_brakes;
+
+	//map these values from 0..4 to 0..1
+	speedbrake_lever = map((float)da.get_pedestal().speed_brakes, 0, 4, 0, 1);
+	flap_lever = map((float)da.get_pedestal().flaps, 0, 4, 0, 1);
+
+
+
+	//----------------------------------------------------------------------------------------------------------------------------
+
+	//combine pedals and steering wheel
+	if (acr_on_ground)
+	{
+		yaw_combined = yaw_steeringwheel + ((6 / 75) * yaw_pedals);
+		if (yaw_combined > 1)
+			yaw_combined = 1;
+
+		if (yaw_combined < -1)
+			yaw_combined = -1;
+	}
+
+	else
+	{
+		yaw_combined = yaw_pedals;
+	}
+
+
+	//calculate combined brake ratio
+	combined_left_brake_ratio = da.get_pedal1().brake_l + da.get_pedal2().brake_l;
+	combined_right_brake_ratio = da.get_pedal1().brake_r + da.get_pedal2().brake_r;
+
+	//check if maximum/minimum value is reached
+	if (combined_left_brake_ratio > 1)
+		combined_left_brake_ratio = 1;
+
+	if (combined_right_brake_ratio > 1)
+		combined_right_brake_ratio = 1;
+
+	//Put Thrust Values in Array
+	thrust_array[0] = da.get_pedestal().thrust_lev1;
+	thrust_array[1] = da.get_pedestal().thrust_lev2;
+	thrust_array[2] = 0;
+	thrust_array[3] = 0;
+	thrust_array[4] = 0;
+	thrust_array[5] = 0;
+	thrust_array[6] = 0;
+	thrust_array[7] = 0;
+
+	if ((thrust_array[0] >= 0) && (thrust_array[0] <= 0.59))
+	{
+		thrust_array[0] = map(thrust_array[0], 0, 0.6, 0, 0.9);
+	}
+	if (thrust_array[0] > 0.59)
+		thrust_array[0] = map(thrust_array[0], 0.59, 1, 0.9, 1);
+	if ((thrust_array[1] >= 0) && (thrust_array[1] <= 0.59))
+	{
+		thrust_array[1] = map(thrust_array[1], 0, 0.6, 0, 0.9);
+	}
+	if (thrust_array[1] > 0.59)
+		thrust_array[1] = map(thrust_array[1], 0.59, 1, 0.9, 1);
+	if (thrust_array[0] < 0.1)
+		thrust_array[0] = 0;
+	if (thrust_array[1] < 0.1)
+		thrust_array[1] = 0;
+	//////////////////////////////////////////
+	//Set XPLM Values----------------------------------------------------------------------------------------------------------------------------
+
+	//Static
+	XPLMSetDatai(local_has_joystick, 1);
+	XPLMSetDatai(local_mouse_is_joystick, 0);
+	XPLMSetDatai(local_override_joystick, 1);
+	XPLMSetDatai(local_override_throttles, 1);
+
+	//set datarefs----------------------------------------------------------------------------------------------------------------------------------
+	//combined controls
+	XPLMSetDataf(local_yoke_pitch_ratio, pitch_combined);
+	XPLMSetDataf(local_yoke_roll_ratio, roll_combined);
+	XPLMSetDataf(local_yoke_heading_ratio, yaw_combined);
+
+	//thrust values for engines
+	XPLMSetDatavf(local_ENGN_thro_use, thrust_array, 0, 8);	//Array with elements as number of engines!!
+	XPLMSetDatavf(local_ENGN_thro, thrust_array, 0, 8);
+	XPLMSetDatavf(local_throttle_ratio, thrust_array, 0, 8);
+
+	//combined brake values
+	XPLMSetDataf(local_left_brake_ratio, combined_left_brake_ratio);
+	XPLMSetDataf(local_right_brake_ratio, combined_right_brake_ratio);
+
+	//pedestal levers
+	XPLMSetDataf(local_speedbrake_ratio, speedbrake_lever);
+	XPLMSetDataf(local_flap_ratio, flap_lever);
+	XPLMSetDatai(local_parkingbrake_ratio, (int)parkbrake);
+
+	//Use XPLM Commands for ruddertrim controls
+	if (da.get_rud_trim().rot_switch0 == -1)
+	{
+		XPLMCommandBegin(local_ruddertrim_right);
+		std::cout << " rudtrim right" << std::endl;
+	}
+	else if (da.get_rud_trim().rot_switch0 == 1)
+	{
+		XPLMCommandBegin(local_ruddertrim_left);
+		std::cout << " rudtrim left" << std::endl;
+	}
+	else if (da.get_rud_trim().rot_switch0 == 0)
+	{
+		XPLMCommandEnd(local_ruddertrim_left);
+		XPLMCommandEnd(local_ruddertrim_right);
+	}
+
+	if (da.get_rud_trim().touch_button0 == 1)
+	{
+		XPLMCommandBegin(local_ruddertrim_center);
+		std::cout << "reset" << std::endl;
+	}
+}
 
 void find_qpac_datarefs()
 {
