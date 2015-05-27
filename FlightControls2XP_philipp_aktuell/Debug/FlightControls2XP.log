@@ -1,4 +1,4 @@
-﻿Der Buildvorgang wurde am 27.05.2015 10:36:24 gestartet.
+﻿Der Buildvorgang wurde am 27.05.2015 10:42:12 gestartet.
      1>Projekt "D:\Dokumente\Flightcontrols2XPlane\FlightControls2XP_philipp_aktuell\FlightControls2XP.vcxproj" auf Knoten "2", Rebuild Ziel(e).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
@@ -293,4 +293,4 @@
 
 Build erfolgreich.
 
-Verstrichene Zeit 00:00:02.95
+Verstrichene Zeit 00:00:03.21
