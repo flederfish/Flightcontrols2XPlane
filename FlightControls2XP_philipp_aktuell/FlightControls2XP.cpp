@@ -94,11 +94,14 @@ float MyFlightLoopCallback(		   float                inElapsedSinceLastCall,
 
 	time_since_last_loop = inElapsedSinceLastCall;
 
-	
-
 	da.update(dp);
 	
-	
+	flags data;
+	data.AP1 = 0;
+	data.AP2 = 0;
+	data.AThr = 0;
+	dp->setMyData(data);
+	dp->wProceedNet();
 
 	//gear lever
 	//XPLMSetDatai(local_gearlever_position, da.get_overhead_hw().toggle_switch0);
@@ -565,6 +568,7 @@ void write_general_controls()
 	}
 	if (thrust_array[1] > 0.59)
 		thrust_array[1] = map(thrust_array[1], 0.59, 1, 0.9, 1);
+
 	if (thrust_array[0] < 0.1)
 		thrust_array[0] = 0;
 	if (thrust_array[1] < 0.1)

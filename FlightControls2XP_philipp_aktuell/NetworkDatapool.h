@@ -1,27 +1,7 @@
-/*****************************************************************************
- *
- *  Copyright 1992 TH-Darmstadt FG Flugmechanik und Regelungstechnik
- *  Patent pending
- *
- *****************************************************************************
- * Projektname     : CAVOK Flight Mechanics
- * Modulname       : Network.h
- * Kurzbeschreibung: connects to the Datapool and reads and writes data
- *
- * Bearbeiter:   Datum:   Aenderung:
- * ------------- -------- ----------------------------------------------------
- * 
- * Inhaltsverzeichnis aller Funktionen:
- * ---------------------------------------------------------------------------
- * 
- * 
- * 
- * 
- * ---------------------------------------------------------------------------
- *                                                      CAVOK MODULHEADER V1.2
- *****************************************************************************
- * $Id: NetworkDatapool.h,v 1.2 2007-08-20 11:00:02 barraci Exp $
- *****************************************************************************/
+/*	\class NetworkDatapool
+ *	
+ *	\brief Contains functions to set up a connection with all the boxes to the datapool.
+ */
 #ifndef _NETWORK_DATAPOOL_H_
 #define _NETWORK_DATAPOOL_H_
 /*****************************************************************************
@@ -38,8 +18,10 @@ using namespace std;
 
 #include <string.h>
 #include <stdio.h>
+
 #include "ds_BoxXplane.h"
 #include "ds_MyXPlane.h"
+
 #include "ds_BoxRudTrim.h"
 #include "ds_BoxStick1.h"
 #include "ds_BoxStick2.h"
@@ -47,13 +29,14 @@ using namespace std;
 #include "ds_BoxOverheadHW.h"
 #include "ds_BoxPedalbox1.h"
 #include "ds_BoxPedalbox2.h"
-
 #include "ds_BoxEFIS1.h"
 #include "ds_BoxEFIS2.h"
 #include "ds_BoxFCU.h"
- /*****************************************************************************
- * defines
- *****************************************************************************/
+
+#include "ds_box_write.h"
+
+
+// \def defines for the Names of the boxes
 #define BOXXPLANE	"BoxXlane"
 #define MYXPDATASET	"MyXpDataset"
 #define BOX_RUDDER_TRIM "BOX_RUDDER_TRIM"
@@ -66,9 +49,9 @@ using namespace std;
 #define BOX_EFIS1 "BOX_EFIS1"
 #define BOX_EFIS2 "BOX_EFIS2"
 #define BOX_FCU "BOX_FCU"
-/*****************************************************************************
- * Class Definitions
- *****************************************************************************/
+#define BOX_WRITE "BOX_WRITE"
+
+
 class NetworkDatapool{
 
 public:
@@ -76,27 +59,29 @@ public:
 
     ~NetworkDatapool();
   
-	/** Connects to the Datapool
+	/** \brief Connects to the Datapool
 	 *
-	 * @return returns DS_EOK (=1) if the connection was successfull.
+	 *	Set up a connections with all the boxes. Prints errors to the console.
+	 *
+	 * \return returns DS_EOK (=1) if the connection was successfull.
 	 */
     short connect();
 
-	/** Disonnects from the Datapool
+	/**	\brief	Disonnects from the Datapool
 	 *
-	 * @return returns DS_EOK (=1) if the connection was successfully closed.
+	 *  \return returns DS_EOK (=1) if the connection was successfully closed.
 	 */
     short disconnect();
 
 	/** Read Data from the Datapool
 	 *
-	 * @return returns DS_EOK (=1) if data was successfully read from the datapool.
+	 *	\return returns DS_EOK (=1) if data was successfully read from the datapool.
 	 */
     short rProceedNet();
 
 	/** Disonnects from the Datapool
 	 *
-	 * @return returns DS_EOK (=1) if data was successfully read from the datapool.
+	 *	\return returns DS_EOK (=1) if data was successfully read from the datapool.
 	 */
     short wProceedNet();
 
@@ -110,7 +95,7 @@ public:
 
 	 /** Used to get the data previously read from the datapool
 	  *  
-	  * @param adr1.. Function writes into the data to the given variable.
+	  * \param adr1.. Function writes into the data to the given variable.
 	  */
 	 void	getMyData(Overhead_Hardware &adr1,
 		 Pedalbox1 &adr2,
@@ -125,7 +110,7 @@ public:
 		 );
 
 
-	 void	setMyData(CONTROLS_T _data);
+	 void	setMyData(flags& data);
 
 	 
     short isError();
@@ -154,6 +139,7 @@ private:
 	EFIS1				 mydata_EFIS1;
 	EFIS2				 mydata_EFIS2;
 	FCU					 mydata_FCU;
+	flags				 mydata_flags_write;
 	
 }/*NetworkDatapool*/;
 #endif  

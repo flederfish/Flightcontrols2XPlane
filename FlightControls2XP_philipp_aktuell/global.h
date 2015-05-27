@@ -120,19 +120,47 @@ data da;
 
 //------------------------------------------------------------------------------------------------------
 
+/*	\brief	maps 1 Value from one specific output range to another specific output range.
+ *	
+ *	\param	x	the value to be mapped
+ *	\param in_min	minimum value x can have
+ *	\param in_max	maximum value x can have
+ *	\param out_min	minimum value you want the output to have
+ *	\param out_max	maximum value you want the output to have
+ *
+ *	\return the mapped value
+ */
 float map(float x, float in_min, float in_max, float out_min, float out_max);
 
+
+/*	\brief	Reads the data from the data object (only FCU data) and writes the matching datarefs or 
+ *	 uses matching commands in xplane
+ */
 void write_FCU();
 
+
+/*	\brief	Reads the data from the data object (only EFIS1 + EFIS2 data) and writes the matching datarefs or
+ *	 uses matching commands in xplane
+ */
 void write_EFIS();
 
+
+/*	\brief	Reads the data from the data object (data for control e.g. sticks, pedals, flaps, gears....) and writes the matching datarefs or
+ *	 uses matching commands in xplane
+ */
 void write_general_controls();
 
+
+/*	\brief	Function which is registered as the flightloop and is called periodically by xplane
+ */
 float	MyFlightLoopCallback(float inElapsedSinceLastCall,
 	float inElapsedTimeSinceLastFlightLoop,
 	int   inCounter,
 	void *inRefcon);
 
+
+/*	\brief	Function which searches all qpac datarefs and should be called once in the flightloop
+ */
 void find_qpac_datarefs();
 
 #endif

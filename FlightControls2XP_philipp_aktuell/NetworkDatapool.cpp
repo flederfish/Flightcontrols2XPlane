@@ -1,39 +1,10 @@
-/*****************************************************************************
- *
- *  Copyright 1992 TH-Darmstadt FG Flugmechanik und Regelungstechnik
- *  Patent pending
- *
- *****************************************************************************
- * Projektname     : CAVOK Flight Mechanics
- * Modulname       : Network.cc
- * Kurzbeschreibung: connects to the network and reads and writes data
- *
- * Bearbeiter:   Datum:   Aenderung:
- * ------------- -------- ----------------------------------------------------
- * schiefele     20.8.97   development
- * schiefele     20.3.98   adapted to next generation of communication
- * 
- * Inhaltsverzeichnis aller Funktionen:
- * ---------------------------------------------------------------------------
- * 
- * 
- * 
- * 
- * ---------------------------------------------------------------------------
- *                                                      CAVOK MODULHEADER V1.2
- *****************************************************************************
- * $Id: NetworkDatapool.cpp,v 1.2 2007-08-20 11:00:02 barraci Exp $
- *****************************************************************************/
+
 #include "NetworkDatapool.h"
 #include "iostream"
 #define SLEEP_WIN_ATM 100
 
 
 NetworkDatapool::NetworkDatapool(char *WorldName_,char *_AcrName, short ConnectedOnStartup, short &Success){
-    /***************************************************************************
-     * DESCRIPTION
-     *  initalizes recorder
-     ***************************************************************************/
 
     Success= 1;
     Error  = 0;
@@ -53,16 +24,14 @@ NetworkDatapool::NetworkDatapool(char *WorldName_,char *_AcrName, short Connecte
 	ds_initialize_EFIS_2(BOX_EFIS2, AcrName);
 	ds_initialize_FCU(BOX_FCU, AcrName);
 
+	ds_initialize_box_write(BOX_WRITE, AcrName);
+	
     if ( ConnectedOnStartup )
         Success &= connect();
 
 }/*NetworkDatapool*/
 
 NetworkDatapool::~NetworkDatapool(){
-    /***************************************************************************
-     * DESCRIPTION
-     *  closes NetworkDatapool
-     ***************************************************************************/
     ds_disconnect();
     Connected = 0;
 }/*~NetworkDatapool*/
@@ -99,6 +68,9 @@ short NetworkDatapool::connect(){
 	ds_err = ds_r_announce(BOX_EFIS1);
 	ds_err = ds_r_announce(BOX_EFIS2);
 	ds_err = ds_r_announce(BOX_FCU);
+
+	ds_err = ds_w_announce(BOX_WRITE);
+
     Success&= (ds_err == DS_EOK);
 
 
@@ -146,6 +118,11 @@ short NetworkDatapool::disconnect(){
 
 	ds_err = ds_r_resign(BOX_FCU);
 	Success &= (ds_err == DS_EOK);
+
+
+	ds_err = ds_w_resign(BOX_WRITE);
+	Success &= (ds_err == DS_EOK);
+
 
     ds_err = ds_disconnect();
     Success &= (ds_err == DS_EOK);
@@ -211,20 +188,11 @@ short NetworkDatapool::rProceedNet(){
 }/*readNet*/
 
 short NetworkDatapool::wProceedNet(){
-    /***************************************************************************
-     * DESCRIPTION
-     *  read data from net (write data? disabled. we dont write)
-     ***************************************************************************/
-
-//Error = DS_EOK;
-//
-//
-//if (Connected){
-//      
-//    Error= ds_write (BOXXPLANE,(char*)&data_Xplane);
-//    printTest(Error,BOXXPLANE);
-//}
-//
+	if (Connected)
+	{
+		Error = ds_write(BOX_WRITE, (char *)&mydata_flags_write);
+		printTest(Error, BOX_WRITE);
+	}
 return(0);
 }/*readNet*/
 
@@ -244,9 +212,9 @@ short NetworkDatapool::isError(){
 //   data_Xplane = _data; 
 //}
 
-void NetworkDatapool::setMyData(CONTROLS_T _data)
+void NetworkDatapool::setMyData(flags& data)
 {
-   mydata_Xplane = _data; 
+   mydata_flags_write = data;
 }
 
 

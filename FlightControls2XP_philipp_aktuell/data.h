@@ -1,4 +1,8 @@
-/** Stores und prepares Data read from the datapool so they can be used 
+/*	\class data
+ *	
+ *	\brief class for storing data from the datapool
+ *
+ *	Connects to the Datapool using the NetworkDatapool class.
  */
 
 #pragma once
@@ -14,20 +18,21 @@
 
 #include "NetworkDatapool.h"
 
+
+
 class data
 {
 public:
 	data();
 	~data();
 
-	/**  Call this to read from the datapool dp and to store the data in the data object.
+	/*	\brief	Call this to read from the datapool dp and to store the data.
 	 *
-	 *  @param dp the NetworkDatapool object for connecting to the network and reading the data.
+	 *  \param dp the NetworkDatapool object for connecting to the network and reading the data.
 	 */
 	void update(NetworkDatapool *dp);
 
-	/**	
-	 *	Getter functions, just returns the specified struct with the data.
+	/*	\brief	Getter functions, just returns the specified struct with the data.
 	 */
 	EFIS2 get_efis2();
 	EFIS1 get_efis1();
@@ -40,14 +45,16 @@ public:
 	Stick_2 get_stick2();
 	FCU get_FCU();
 
-	/**	Checks the priority function on the sticks,combines pitch and roll values automatically and writes
-	 *	them into the given addresses.
+	/**	\brief	Checks the priority function on the sticks,combines pitch and roll values automatically and writes
+	 *			them into the given addresses.
 	 *
-	 *	@param combined_pitch function writes the combined pitch value from both sticks into this address
-	 *	@param combined_roll function writes the combined roll value from both sticks into this address
-	 *	@param inElapsedSinceLastCall elapsed time since the function was last called. 
+	 *	\param combined_pitch function writes the combined pitch value from both sticks into this address
+	 *	\param combined_roll function writes the combined roll value from both sticks into this address
+	 *	\param inElapsedSinceLastCall elapsed time since the function was last called. 
 	 */
 	void check_stick_priority(float &combined_pitch, float &combined_roll, float inElapsedSinceLastCall);
+
+
 private:
 	//raw data structs
 	EFIS1 my_efis1 = *new(EFIS1);
