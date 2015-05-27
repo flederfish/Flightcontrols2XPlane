@@ -39,10 +39,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\XPSDK\SDK\CHeaders;C:\octopus;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Dokumente\Flightcontrols2XPlane\FlightControls2XP_philipp_aktuell\XP_libs;D:\Dokumente\Flightcontrols2XPlane\FlightControls2XP_philipp_aktuell\octopus;D:\Dokumente\Flightcontrols2XPlane\FlightControls2XP_philipp_aktuell\XPLM;C:\XPSDK\SDK\CHeaders;C:\octopus;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>C:\Users\philipp\Desktop\FlightControls2XP_philipp\octopus;C:\XP_libs;C:\includes\octopus;C:\XPSDK\SDK\Libraries\Win;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\Dokumente\Flightcontrols2XPlane\FlightControls2XP_philipp_aktuell\XP_libs;D:\Dokumente\Flightcontrols2XPlane\FlightControls2XP_philipp_aktuell\octopus;C:\Users\philipp\Desktop\FlightControls2XP_philipp\octopus;C:\XP_libs;C:\includes\octopus;C:\XPSDK\SDK\Libraries\Win;$(LibraryPath)</LibraryPath>
     <LinkIncremental>true</LinkIncremental>
     <OutDir>.\Ausgabe</OutDir>
   </PropertyGroup>

@@ -231,184 +231,7 @@ float MyFlightLoopCallback(		   float                inElapsedSinceLastCall,
 	//gear lever
 	//XPLMSetDatai(local_gearlever_position, da.get_overhead_hw().toggle_switch0);
 	
-	//EFIS1
-	XPLMSetDatai(local_EFIS1_FD_engageCapt, da.get_efis1().pushbutton0);
-	XPLMSetDatai(local_EFIS1_ILSonCap, da.get_efis1().pushbutton1);
-
-	XPLMSetDataf(local_EFIS1_Baro_Setting_in_hg_pilot, (da.get_efis1().lcd_counter0) * 0.0295);
-	XPLMSetDatai(local_EFIS1_Baro_Std_Capt, !da.get_efis1().control_knob0);
-	XPLMSetDatai(local_EFIS1_Baro_Unit_Capt, da.get_overhead_hw().toggle_switch1);
-
-	//static variables to make sure the dataref gets written 0 only once
-	static short check1 = 0;
-	static short check2 = 0;
-	static short check3 = 0;
-	static short check4 = 0;
-
-	static short check5 = 0;
-	static short check6 = 0;
-	static short check7 = 0;
-	static short check8 = 0;
-	//check if one button is turned on and write the dataref = 1
-	//button 1
-	if (da.get_efis1().radiobutton1)
-	{
-		XPLMSetDatai(local_EFIS1_WPTCapt, 1);
-		check1 = 0;
-	}
-	//button2
-	else if (da.get_efis1().radiobutton2)
-	{
-		XPLMSetDatai(local_EFIS1_VORDCapt, 1);
-		check2 = 0;
-	}
-	//button3
-	else if (da.get_efis1().radiobutton3)
-	{
-		XPLMSetDatai(local_EFIS1_NDBCapt, 1);
-		check3 = 0;
-	}
-	//button4
-	else if (da.get_efis1().radiobutton4)
-	{
-		XPLMSetDatai(local_EFIS1_ARPTCapt, 1);
-		check4 = 0;
-	}
-
-	//check if the button is turned off and write the dataref = 0 only ONCE!!
-	//button1
-	if ((da.get_efis1().radiobutton1) == 0 && (check1 == 0))
-	{
-		XPLMSetDatai(local_EFIS1_WPTCapt, 0);
-		check1 = 1;
-	}
-	//button2
-	else if ((da.get_efis1().radiobutton2) == 0 && (check2 == 0))
-	{
-		XPLMSetDatai(local_EFIS1_VORDCapt, 0);
-		check2 = 1;
-	}
-	//button3
-	else if ((da.get_efis1().radiobutton3) == 0 && (check3 == 0))
-	{
-		XPLMSetDatai(local_EFIS1_NDBCapt, 0);
-		check3 = 1;
-	}
-	//button4
-	else if ((da.get_efis1().radiobutton4) == 0 && (check4 == 0))
-	{
-		XPLMSetDatai(local_EFIS1_ARPTCapt, 0);
-		check4 = 1;
-	}
-
-	//EFIS2
-	XPLMSetDatai(local_EFIS2_FD_engageFO, da.get_efis2().pushbutton0);
-	XPLMSetDatai(local_EFIS2_ILSonFO, da.get_efis2().pushbutton1);
-
-	XPLMSetDataf(local_EFIS2_Baro_setting_in_hg_fo, da.get_efis2().lcd_counter0 / 100);
-	XPLMSetDatai(local_EFIS2_Baro_StdFO, !da.get_efis2().control_knob0);
-	XPLMSetDatai(local_EFIS2_Baro_Unit_FO, 1);
 	
-	//check if one button is turned on and write the dataref = 1
-	//button 1
-	if (da.get_efis2().radiobutton1)
-	{
-		XPLMSetDatai(local_EFIS2_WPTFO, 1);
-		check5 = 0;
-	}
-	else if (da.get_efis2().radiobutton2)
-	{
-		XPLMSetDatai(local_EFIS2_VORDFO, 1);
-		check6 = 0;
-	}
-	else if (da.get_efis2().radiobutton3)
-	{
-		XPLMSetDatai(local_EFIS2_NDBFO, 1);
-		check7 = 0;
-	}
-	else if (da.get_efis2().radiobutton4)
-	{
-		XPLMSetDatai(local_EFIS2_ARPTFO, 1);
-		check8 = 0;
-	}
-	//check if the button is turned off and write the dataref = 0 only ONCE!!
-	//button1
-	if ((da.get_efis2().radiobutton1) == 0 && (check5 == 0))
-	{
-		XPLMSetDatai(local_EFIS2_WPTFO, 0);
-		check5 = 1;
-	}
-	//button2
-	else if ((da.get_efis2().radiobutton2) == 0 && (check6 == 0))
-	{
-		XPLMSetDatai(local_EFIS2_VORDFO, 0);
-		check6 = 1;
-	}
-	//button3
-	else if ((da.get_efis2().radiobutton3) == 0 && (check7 == 0))
-	{
-		XPLMSetDatai(local_EFIS2_NDBFO, 0);
-		check7 = 1;
-	}
-	//button4
-	else if ((da.get_efis2().radiobutton4) == 0 && (check8 == 0))
-	{
-		XPLMSetDatai(local_EFIS2_ARPTFO, 0);
-		check8 = 1;
-	}
-	
-	//3state switches CAPT
-	if (da.get_efis1().toggle_switch0 == 0 || da.get_efis1().toggle_switch0 == 1)
-		XPLMSetDatai(local_EFIS1_toggleswitch0, !da.get_efis1().toggle_switch0);
-	else
-		XPLMSetDatai(local_EFIS1_toggleswitch0, 2);
-
-	if (da.get_efis1().toggle_switch1 == 0 || da.get_efis1().toggle_switch1 == 1)
-		XPLMSetDatai(local_EFIS1_toggleswitch1, !da.get_efis1().toggle_switch1);
-	else
-		XPLMSetDatai(local_EFIS1_toggleswitch1, 2);
-
-	//3 state switches FO
-	if (da.get_efis2().toggle_switch0 == 0 || da.get_efis2().toggle_switch0 == 1)
-		XPLMSetDatai(local_EFIS2_toggleswitch0_FO, !da.get_efis2().toggle_switch0);
-	else
-		XPLMSetDatai(local_EFIS2_toggleswitch0_FO, 2);
-
-	if (da.get_efis2().toggle_switch1 == 0 || da.get_efis2().toggle_switch1 == 1)
-		XPLMSetDatai(local_EFIS2_toggleswitch1_FO, !da.get_efis2().toggle_switch1);
-	else
-		XPLMSetDatai(local_EFIS2_toggleswitch1_FO, 2);
-
-	//rotary switch1
-	XPLMSetDatai(local_EFIS1_NDmodeCapt, da.get_efis1().rot_switch1);
-	XPLMSetDatai(local_EFIS2_NDmodeFO, da.get_efis2().rot_switch1);
-
-	//rot switch2
-	if (da.get_efis1().rot_switch2 == 10)
-		XPLMSetDatai(local_EFIS1_NDrangeCapt, 0);
-	else if (da.get_efis1().rot_switch2 == 20)
-		XPLMSetDatai(local_EFIS1_NDrangeCapt, 1);
-	else if (da.get_efis1().rot_switch2 == 40)
-		XPLMSetDatai(local_EFIS1_NDrangeCapt, 2);
-	else if (da.get_efis1().rot_switch2 == 80)
-		XPLMSetDatai(local_EFIS1_NDrangeCapt, 3);
-	else if (da.get_efis1().rot_switch2 == 160)
-		XPLMSetDatai(local_EFIS1_NDrangeCapt, 4);
-	else if (da.get_efis1().rot_switch2 == 320)
-		XPLMSetDatai(local_EFIS1_NDrangeCapt, 5);
-
-	if (da.get_efis2().rot_switch2 == 10)
-		XPLMSetDatai(local_EFIS2_NDrangeFO, 0);
-	else if (da.get_efis2().rot_switch2 == 20)
-		XPLMSetDatai(local_EFIS2_NDrangeFO, 1);
-	else if (da.get_efis2().rot_switch2 == 40)
-		XPLMSetDatai(local_EFIS2_NDrangeFO, 2);
-	else if (da.get_efis2().rot_switch2 == 80)
-		XPLMSetDatai(local_EFIS2_NDrangeFO, 3);
-	else if (da.get_efis2().rot_switch2 == 160)
-		XPLMSetDatai(local_EFIS2_NDrangeFO, 4);
-	else if (da.get_efis2().rot_switch2 == 320)
-		XPLMSetDatai(local_EFIS2_NDrangeFO, 5);
 
 	write_FCU();
 
@@ -604,7 +427,187 @@ void write_FCU()
 
 }
 
+void write_EFIS()
+{
+	//EFIS1
+	XPLMSetDatai(local_EFIS1_FD_engageCapt, da.get_efis1().pushbutton0);
+	XPLMSetDatai(local_EFIS1_ILSonCap, da.get_efis1().pushbutton1);
 
+	XPLMSetDataf(local_EFIS1_Baro_Setting_in_hg_pilot, (da.get_efis1().lcd_counter0) * 0.0295);
+	XPLMSetDatai(local_EFIS1_Baro_Std_Capt, !da.get_efis1().control_knob0);
+	XPLMSetDatai(local_EFIS1_Baro_Unit_Capt, da.get_overhead_hw().toggle_switch1);
+
+	//static variables to make sure the dataref gets written 0 only once
+	static short check1 = 0;
+	static short check2 = 0;
+	static short check3 = 0;
+	static short check4 = 0;
+
+	static short check5 = 0;
+	static short check6 = 0;
+	static short check7 = 0;
+	static short check8 = 0;
+	//check if one button is turned on and write the dataref = 1
+	//button 1
+	if (da.get_efis1().radiobutton1)
+	{
+		XPLMSetDatai(local_EFIS1_WPTCapt, 1);
+		check1 = 0;
+	}
+	//button2
+	else if (da.get_efis1().radiobutton2)
+	{
+		XPLMSetDatai(local_EFIS1_VORDCapt, 1);
+		check2 = 0;
+	}
+	//button3
+	else if (da.get_efis1().radiobutton3)
+	{
+		XPLMSetDatai(local_EFIS1_NDBCapt, 1);
+		check3 = 0;
+	}
+	//button4
+	else if (da.get_efis1().radiobutton4)
+	{
+		XPLMSetDatai(local_EFIS1_ARPTCapt, 1);
+		check4 = 0;
+	}
+
+	//check if the button is turned off and write the dataref = 0 only ONCE!!
+	//button1
+	if ((da.get_efis1().radiobutton1) == 0 && (check1 == 0))
+	{
+		XPLMSetDatai(local_EFIS1_WPTCapt, 0);
+		check1 = 1;
+	}
+	//button2
+	else if ((da.get_efis1().radiobutton2) == 0 && (check2 == 0))
+	{
+		XPLMSetDatai(local_EFIS1_VORDCapt, 0);
+		check2 = 1;
+	}
+	//button3
+	else if ((da.get_efis1().radiobutton3) == 0 && (check3 == 0))
+	{
+		XPLMSetDatai(local_EFIS1_NDBCapt, 0);
+		check3 = 1;
+	}
+	//button4
+	else if ((da.get_efis1().radiobutton4) == 0 && (check4 == 0))
+	{
+		XPLMSetDatai(local_EFIS1_ARPTCapt, 0);
+		check4 = 1;
+	}
+
+	//EFIS2
+	XPLMSetDatai(local_EFIS2_FD_engageFO, da.get_efis2().pushbutton0);
+	XPLMSetDatai(local_EFIS2_ILSonFO, da.get_efis2().pushbutton1);
+
+	XPLMSetDataf(local_EFIS2_Baro_setting_in_hg_fo, da.get_efis2().lcd_counter0 / 100);
+	XPLMSetDatai(local_EFIS2_Baro_StdFO, !da.get_efis2().control_knob0);
+	XPLMSetDatai(local_EFIS2_Baro_Unit_FO, 1);
+
+	//check if one button is turned on and write the dataref = 1
+	//button 1
+	if (da.get_efis2().radiobutton1)
+	{
+		XPLMSetDatai(local_EFIS2_WPTFO, 1);
+		check5 = 0;
+	}
+	else if (da.get_efis2().radiobutton2)
+	{
+		XPLMSetDatai(local_EFIS2_VORDFO, 1);
+		check6 = 0;
+	}
+	else if (da.get_efis2().radiobutton3)
+	{
+		XPLMSetDatai(local_EFIS2_NDBFO, 1);
+		check7 = 0;
+	}
+	else if (da.get_efis2().radiobutton4)
+	{
+		XPLMSetDatai(local_EFIS2_ARPTFO, 1);
+		check8 = 0;
+	}
+	//check if the button is turned off and write the dataref = 0 only ONCE!!
+	//button1
+	if ((da.get_efis2().radiobutton1) == 0 && (check5 == 0))
+	{
+		XPLMSetDatai(local_EFIS2_WPTFO, 0);
+		check5 = 1;
+	}
+	//button2
+	else if ((da.get_efis2().radiobutton2) == 0 && (check6 == 0))
+	{
+		XPLMSetDatai(local_EFIS2_VORDFO, 0);
+		check6 = 1;
+	}
+	//button3
+	else if ((da.get_efis2().radiobutton3) == 0 && (check7 == 0))
+	{
+		XPLMSetDatai(local_EFIS2_NDBFO, 0);
+		check7 = 1;
+	}
+	//button4
+	else if ((da.get_efis2().radiobutton4) == 0 && (check8 == 0))
+	{
+		XPLMSetDatai(local_EFIS2_ARPTFO, 0);
+		check8 = 1;
+	}
+
+	//3state switches CAPT
+	if (da.get_efis1().toggle_switch0 == 0 || da.get_efis1().toggle_switch0 == 1)
+		XPLMSetDatai(local_EFIS1_toggleswitch0, !da.get_efis1().toggle_switch0);
+	else
+		XPLMSetDatai(local_EFIS1_toggleswitch0, 2);
+
+	if (da.get_efis1().toggle_switch1 == 0 || da.get_efis1().toggle_switch1 == 1)
+		XPLMSetDatai(local_EFIS1_toggleswitch1, !da.get_efis1().toggle_switch1);
+	else
+		XPLMSetDatai(local_EFIS1_toggleswitch1, 2);
+
+	//3 state switches FO
+	if (da.get_efis2().toggle_switch0 == 0 || da.get_efis2().toggle_switch0 == 1)
+		XPLMSetDatai(local_EFIS2_toggleswitch0_FO, !da.get_efis2().toggle_switch0);
+	else
+		XPLMSetDatai(local_EFIS2_toggleswitch0_FO, 2);
+
+	if (da.get_efis2().toggle_switch1 == 0 || da.get_efis2().toggle_switch1 == 1)
+		XPLMSetDatai(local_EFIS2_toggleswitch1_FO, !da.get_efis2().toggle_switch1);
+	else
+		XPLMSetDatai(local_EFIS2_toggleswitch1_FO, 2);
+
+	//rotary switch1
+	XPLMSetDatai(local_EFIS1_NDmodeCapt, da.get_efis1().rot_switch1);
+	XPLMSetDatai(local_EFIS2_NDmodeFO, da.get_efis2().rot_switch1);
+
+	//rot switch2
+	if (da.get_efis1().rot_switch2 == 10)
+		XPLMSetDatai(local_EFIS1_NDrangeCapt, 0);
+	else if (da.get_efis1().rot_switch2 == 20)
+		XPLMSetDatai(local_EFIS1_NDrangeCapt, 1);
+	else if (da.get_efis1().rot_switch2 == 40)
+		XPLMSetDatai(local_EFIS1_NDrangeCapt, 2);
+	else if (da.get_efis1().rot_switch2 == 80)
+		XPLMSetDatai(local_EFIS1_NDrangeCapt, 3);
+	else if (da.get_efis1().rot_switch2 == 160)
+		XPLMSetDatai(local_EFIS1_NDrangeCapt, 4);
+	else if (da.get_efis1().rot_switch2 == 320)
+		XPLMSetDatai(local_EFIS1_NDrangeCapt, 5);
+
+	if (da.get_efis2().rot_switch2 == 10)
+		XPLMSetDatai(local_EFIS2_NDrangeFO, 0);
+	else if (da.get_efis2().rot_switch2 == 20)
+		XPLMSetDatai(local_EFIS2_NDrangeFO, 1);
+	else if (da.get_efis2().rot_switch2 == 40)
+		XPLMSetDatai(local_EFIS2_NDrangeFO, 2);
+	else if (da.get_efis2().rot_switch2 == 80)
+		XPLMSetDatai(local_EFIS2_NDrangeFO, 3);
+	else if (da.get_efis2().rot_switch2 == 160)
+		XPLMSetDatai(local_EFIS2_NDrangeFO, 4);
+	else if (da.get_efis2().rot_switch2 == 320)
+		XPLMSetDatai(local_EFIS2_NDrangeFO, 5);
+}
 
 
 void find_qpac_datarefs()

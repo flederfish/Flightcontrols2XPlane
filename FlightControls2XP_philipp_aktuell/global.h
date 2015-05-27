@@ -122,6 +122,8 @@ float map(float x, float in_min, float in_max, float out_min, float out_max);
 
 void write_FCU();
 
+void write_EFIS();
+
 float	MyFlightLoopCallback(float inElapsedSinceLastCall,
 	float inElapsedTimeSinceLastFlightLoop,
 	int   inCounter,
