@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{5624DFBD-6153-4888-9E62-13A681CD9D70}</ProjectGuid>
+    <RootNamespace>FlightControls2XP</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\XPSDK\SDK\CHeaders;C:\octopus;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>C:\Users\philipp\Desktop\FlightControls2XP_philipp\octopus;C:\XP_libs;C:\includes\octopus;C:\XPSDK\SDK\Libraries\Win;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>.\Ausgabe</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>C:\XPSDK\SDK\CHeaders;C:\includes\octopus;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>IBM=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>XPLM.lib;XPWidgets.lib;comm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)FlightControls2XP.xpl</OutputFile>
+      <AdditionalLibraryDirectories>C:\XPSDK\SDK\Libraries\Win;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <PreventDllBinding>false</PreventDllBinding>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="data.cpp" />
+    <ClCompile Include="ds_BoxEFIS1.c" />
+    <ClCompile Include="ds_BoxEFIS2.c" />
+    <ClCompile Include="ds_BoxOverheadHW.c" />
+    <ClCompile Include="ds_BoxPedalbox1.c" />
+    <ClCompile Include="ds_BoxPedalbox2.c" />
+    <ClCompile Include="ds_BoxPedestal.c" />
+    <ClCompile Include="ds_boxRudTrim.c" />
+    <ClCompile Include="ds_BoxStick2.c" />
+    <ClCompile Include="ds_BoxFCU.c" />
+    <ClCompile Include="ds_MyXPlane.c" />
+    <ClCompile Include="FlightControls2XP.cpp" />
+    <ClCompile Include="FlightControls2XPWin.cpp" />
+    <ClCompile Include="guicon.cpp" />
+    <ClCompile Include="NetworkDatapool.cpp" />
+    <ClCompile Include="ds_BoxStick1.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="data.h" />
+    <ClInclude Include="ds_BoxEFIS1.h" />
+    <ClInclude Include="ds_BoxEFIS2.h" />
+    <ClInclude Include="ds_BoxFCU.h" />
+    <ClInclude Include="ds_BoxOverheadHW.h" />
+    <ClInclude Include="ds_BoxPedalbox1.h" />
+    <ClInclude Include="ds_BoxPedalbox2.h" />
+    <ClInclude Include="ds_BoxRudTrim.h" />
+    <ClInclude Include="ds_BoxStick1.h" />
+    <ClInclude Include="ds_BoxStick2.h" />
+    <ClInclude Include="ds_BoxPedestal.h" />
+    <ClInclude Include="ds_MyXPlane.h" />
+    <ClInclude Include="global.h" />
+    <ClInclude Include="guicon.h" />
+    <ClInclude Include="NetworkDatapool.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

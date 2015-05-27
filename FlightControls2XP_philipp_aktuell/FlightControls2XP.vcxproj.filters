@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Quelldateien">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Headerdateien">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Ressourcendateien">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Quelldateien\Boxes">
+      <UniqueIdentifier>{513e4eb9-b807-4f51-a0ad-d26fbf8f4ea2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Boxes">
+      <UniqueIdentifier>{cb252d67-8dff-4f07-9f06-05c41c51c7e2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="FlightControls2XP.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FlightControls2XPWin.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkDatapool.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="guicon.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ds_BoxOverheadHW.c">
+      <Filter>Quelldateien\Boxes</Filter>
+    </ClCompile>
+    <ClCompile Include="ds_BoxPedalbox1.c">
+      <Filter>Quelldateien\Boxes</Filter>
+    </ClCompile>
+    <ClCompile Include="ds_BoxPedalbox2.c">
+      <Filter>Quelldateien\Boxes</Filter>
+    </ClCompile>
+    <ClCompile Include="ds_BoxPedestal.c">
+      <Filter>Quelldateien\Boxes</Filter>
+    </ClCompile>
+    <ClCompile Include="ds_boxRudTrim.c">
+      <Filter>Quelldateien\Boxes</Filter>
+    </ClCompile>
+    <ClCompile Include="ds_BoxStick1.c">
+      <Filter>Quelldateien\Boxes</Filter>
+    </ClCompile>
+    <ClCompile Include="ds_BoxStick2.c">
+      <Filter>Quelldateien\Boxes</Filter>
+    </ClCompile>
+    <ClCompile Include="ds_MyXPlane.c">
+      <Filter>Quelldateien\Boxes</Filter>
+    </ClCompile>
+    <ClCompile Include="ds_BoxEFIS1.c">
+      <Filter>Quelldateien\Boxes</Filter>
+    </ClCompile>
+    <ClCompile Include="data.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="ds_BoxEFIS2.c">
+      <Filter>Quelldateien\Boxes</Filter>
+    </ClCompile>
+    <ClCompile Include="ds_BoxFCU.c">
+      <Filter>Quelldateien\Boxes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NetworkDatapool.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="guicon.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ds_BoxOverheadHW.h">
+      <Filter>Headerdateien\Boxes</Filter>
+    </ClInclude>
+    <ClInclude Include="ds_BoxPedalbox1.h">
+      <Filter>Headerdateien\Boxes</Filter>
+    </ClInclude>
+    <ClInclude Include="ds_BoxPedalbox2.h">
+      <Filter>Headerdateien\Boxes</Filter>
+    </ClInclude>
+    <ClInclude Include="ds_BoxPedestal.h">
+      <Filter>Headerdateien\Boxes</Filter>
+    </ClInclude>
+    <ClInclude Include="ds_BoxRudTrim.h">
+      <Filter>Headerdateien\Boxes</Filter>
+    </ClInclude>
+    <ClInclude Include="ds_BoxStick1.h">
+      <Filter>Headerdateien\Boxes</Filter>
+    </ClInclude>
+    <ClInclude Include="ds_BoxStick2.h">
+      <Filter>Headerdateien\Boxes</Filter>
+    </ClInclude>
+    <ClInclude Include="ds_MyXPlane.h">
+      <Filter>Headerdateien\Boxes</Filter>
+    </ClInclude>
+    <ClInclude Include="ds_BoxEFIS1.h">
+      <Filter>Headerdateien\Boxes</Filter>
+    </ClInclude>
+    <ClInclude Include="data.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="ds_BoxEFIS2.h">
+      <Filter>Headerdateien\Boxes</Filter>
+    </ClInclude>
+    <ClInclude Include="ds_BoxFCU.h">
+      <Filter>Headerdateien\Boxes</Filter>
+    </ClInclude>
+    <ClInclude Include="global.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
